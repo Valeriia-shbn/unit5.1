@@ -1,22 +1,18 @@
 package utils;
 
 import com.github.javafaker.Faker;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Locale;
 import java.util.Random;
 
 @Data
+@AllArgsConstructor
 public class Person {
     private String fullName;
     private String phoneNumber;
     private String city;
-
-    public Person(String fullName,  String phoneNumber, String city) {
-        this.fullName = fullName;
-        this.phoneNumber = phoneNumber;
-        this.city = city;
-    }
 
     private static String getRandomCity(){
         String[] cityList = {
