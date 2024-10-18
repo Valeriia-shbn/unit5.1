@@ -5,19 +5,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
+import utils.DataGenerator;
 import utils.Person;
 
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
-
-
 
 
 public class ChangeDeliveryDateTest {
@@ -28,29 +22,7 @@ public class ChangeDeliveryDateTest {
         return tomorrow.format(formatter);
     }
 
-    private void bookDeliveryDate(String city, String name, String date, String phone){
-
-        $("[placeholder='Город']").doubleClick();
-        $("[placeholder='Город']").sendKeys(Keys.DELETE);
-        $("[placeholder='Город']").setValue(city);
-
-//        $("[data-test-id='date'] input").doubleClick();
-        $("[data-test-id='date'] input").sendKeys(Keys.DELETE);
-        $("[data-test-id='date'] input").setValue(date);
-
-        $("[name='name']").doubleClick();
-        $("[name='name']").sendKeys(Keys.DELETE);
-        $("[name='name']").setValue(name);
-
-        $("[name='phone']").doubleClick();
-        $("[name='phone']").sendKeys(Keys.DELETE);
-        $("[name='phone']").setValue(phone);
-
-        $("[data-test-id='agreement']").click();
-        $$(".button__text").findBy(text("Запланировать")).click();
-    }
-
-    private void checkDeliveryDateReservation(String date){
+    private void checkDeliveryDateReservation(String date) {
         $(".notification__content")
                 .shouldBe(visible, Duration.ofSeconds(20))
                 .shouldHave(Condition.text("Встреча успешно запланирована на " + date));
@@ -58,7 +30,7 @@ public class ChangeDeliveryDateTest {
 
     @Test
     public void shouldChangeDeliveryDate() {
-        Person person = Person.generateFakePerson();
+        Person person = DataGenerator.generateFakePerson();
         String deliveryDate = generateDate(5);
         String newDeliveryDate = generateDate(6);
 
@@ -86,7 +58,6 @@ public class ChangeDeliveryDateTest {
 
         checkDeliveryDateReservation(newDeliveryDate);
     }
-
 
 
 }
